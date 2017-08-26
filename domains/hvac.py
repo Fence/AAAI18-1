@@ -20,13 +20,13 @@ class HVAC(object):
         self._init_ADJHALL_MATRIX(adj_hall)
 
     def _init_ADJ_Matrix(self ,adj):
-        np_adj = np.zeros((self.room_size ,self.room_size))
+        np_adj = np.zeros((self.room_size, self.room_size))
         for i in adj:
             m=self.rooms. index(i[0])
             n=self.rooms. index(i[1])
             np_adj[m, n] = 1
             np_adj[n, m] = 1
-        self.adj = tf.constant(np_adj,dtype=tf. float32)
+        self.adj = tf.constant(np_adj, dtype=tf. float32)
         print('self.adj shape:{0}'.format(self.adj.get_shape()))
 
     def _init_ADJOUT_MATRIX(self, adj_outside):
@@ -36,7 +36,7 @@ class HVAC(object):
             np_adj_outside[m] = 1
         self.adj_outside = tf.constant(np_adj_outside,dtype=tf. float32)
 
-    def _init_ADJHALL_MATRIX(self,adj_hall):
+    def _init_ADJHALL_MATRIX(self, adj_hall):
         np_adj_hall = np.zeros((self.room_size,))
         for i in adj_hall:
             m=self.rooms. index(i)
