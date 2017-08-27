@@ -22,7 +22,7 @@ DEFAULT_SETTINGS = {
    }
 
 
-class ActionOptimizer(object):
+class HVACOptimizer(object):
     def __init__(self,
                  action,  # Actions
                  instance,
