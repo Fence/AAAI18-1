@@ -14,6 +14,7 @@ DEFAULT_SETTINGS = {
     "centre": tf.constant(5.0,dtype=tf.float32)
    }
 
+
 class NAVOptimizer(object):
     def __init__(self,
                  a,  # Actions

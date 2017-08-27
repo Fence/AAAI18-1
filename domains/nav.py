@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+
 class NAVI_BILINEAR(object):
     def __init__(self,
                  batch_size,
@@ -97,8 +98,10 @@ class NAVI_NONLINEAR(object):
 
 class NAVI(object):
     def __init__(self,
+                 batch_size,
                  default_settings):
         self.__dict__.update(default_settings)
+        self.batch_size = batch_size
         self.zero = tf.constant(0, dtype=tf.float32)
         self.two = tf.constant(2.0, dtype=tf.float32)
         self.one = tf.constant(1.0, dtype=tf.float32)
