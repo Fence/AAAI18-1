@@ -1,8 +1,7 @@
-#Domains
+# Domains
 from domains.hvac import HVAC
-from domains.nav import NAVI_BILINEAR
-
-#OPTIMIZER
+from domains.nav import NAVI_BILINEAR, NAVI_NONLINEAR, NAVI_LINEAR
+# OPTIMIZER
 from optimizer.hvac import HVACOptimizer
 from optimizer.nav import NAVOptimizer
 
@@ -13,11 +12,11 @@ CONFIGURATION = {
         'step': [12, 24, 48, 96],
         'batch': 100,
         'top': 10,
-        'log': 'data/hvac/'
+        'log': 'data/hvac/nonlinear'
     },
     {
         'optimizer': NAVOptimizer,
-        'domain': 'linear',
+        'domain': NAVI_LINEAR,
         'step': [30, 60, 120],
         'batch': 100,
         'top': 10,
@@ -33,12 +32,10 @@ CONFIGURATION = {
     },
     {
         'optimizer': NAVOptimizer,
-        'domain': 'linear',
-        'step': [12, 24, 48, 96],
+        'domain': NAVI_NONLINEAR,
+        'step': [30, 60, 120],
         'batch': 100,
         'top': 10,
-        'log': 'data/hvac/'
+        'log': 'data/nav/nonlinear'
     },
-
-
 }

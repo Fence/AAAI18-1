@@ -6,29 +6,29 @@ from domains.nav import NAVI_BILINEAR
 
 DEFAULT_SETTINGS = {
     "dims": 2,
-    "min_maze_bound": tf.constant(0.0,dtype=tf.float32),
-    "max_maze_bound": tf.constant(10.0,dtype=tf.float32),
-    "min_act_bound": tf.constant(-1,dtype=tf.float32),
-    "max_act_bound": tf.constant(1,dtype=tf.float32),
-    "goal": tf.constant(8.0,dtype=tf.float32),
-    "centre": tf.constant(5.0,dtype=tf.float32)
+    "min_maze_bound": tf.constant(0.0, dtype=tf.float32),
+    "max_maze_bound": tf.constant(10.0, dtype=tf.float32),
+    "min_act_bound": tf.constant(-1, dtype=tf.float32),
+    "max_act_bound": tf.constant(1, dtype=tf.float32),
+    "goal": tf.constant(8.0, dtype=tf.float32),
+    "centre": tf.constant(5.0, dtype=tf.float32)
    }
 
 
 class NAVOptimizer(object):
     def __init__(self,
-                 a,  # Actions
+                 action,  # Actions
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  num_act,  # Number of actions
                  batch_size,  # Batch Size
                  learning_rate=0.005):
-        self.action = tf.reshape(a, [-1, num_step, num_act])  # Reshape rewards
+        self.action = action
         print(self.action)
         self.batch_size = batch_size
         self.num_step = num_step
         self.learning_rate = learning_rate
         self._p_create_rnn_graph()
-        self._p_Q_loss()
+        self._p_create_loss()
         self.sess = tf.InteractiveSession()
         self.sess.run(tf.global_variables_initializer())
 
@@ -55,24 +55,7 @@ class NAVOptimizer(object):
         objective = tf.reduce_mean(tf.square(self.pred))
         self.loss = objective
         print(self.loss.get_shape())
-        # self.loss = -objective
-        self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[a])
-
-    def _p_Q_loss(self):
-        objective = tf.constant(0.0, shape=[self.batch_size, 1])
-        for i in range(self.num_step):
-            Rt = self.outputs[:, i]
-            SumRj = tf.constant(0.0, shape=[self.batch_size, 1])
-            # SumRk=tf.constant(0.0, shape=[self.batch_size, 1])
-            if i < (self.num_step - 1):
-                j = i + 1
-                SumRj = tf.reduce_sum(self.outputs[:, j:], 1)
-                # if i<(self.num_step-1):
-                # k= i+1
-                # SumRk = tf.reduce_sum(self.outputs[:,k:],1)
-            objective += (Rt * SumRj + tf.square(Rt)) * (self.num_step - i) / np.square(self.num_step)
-        self.loss = tf.reduce_mean(objective)
-        self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[a])
+        self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
     def Optimize(self, epoch=100, show_progress=False):
         new_loss = self.sess.run([self.loss])
@@ -82,7 +65,10 @@ class NAVOptimizer(object):
         for epoch in range(epoch):
             training = self.sess.run([self.optimizer])
             self.sess.run(
-                tf.assign(a, tf.clip_by_value(a, DEFAULT_SETTINGS['min_act_bound'], DEFAULT_SETTINGS['max_act_bound'])))
+                tf.assign(self.action,
+                          tf.clip_by_value(self.action,
+                                           DEFAULT_SETTINGS['min_act_bound'],
+                                           DEFAULT_SETTINGS['max_act_bound'])))
             if True:
                 new_loss = self.sess.run([self.average_pred])
                 print('Loss in epoch {0}: {1}'.format(epoch, new_loss))

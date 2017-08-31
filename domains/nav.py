@@ -96,7 +96,7 @@ class NAVI_NONLINEAR(object):
         return new_reward
 
 
-class NAVI(object):
+class NAVI_LINEAR(object):
     def __init__(self,
                  batch_size,
                  default_settings):
