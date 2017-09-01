@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow.python.ops import array_ops
 import numpy as np
 from cells.reservoir import RESERVOIRCell
+import time
 
 
 DEFAULT_SETTINGS = {
@@ -24,8 +25,8 @@ class ReservoirOptimizer(object):
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  batch_size,  # Batch Size
                  domain,
-                 learning_rate=0.1):
-        self.action = action,
+                 learning_rate=0.01):
+        self.action = action
         print(self.action)
         self.batch_size = batch_size
         self.num_step = num_step
@@ -49,7 +50,7 @@ class ReservoirOptimizer(object):
         self.outputs = tf.reshape(something_unpacked[0], [-1, self.num_step, 1])
         print(' self.outputs:{0}'.format(self.outputs.get_shape()))
         self.intern_states = tf.stack([something_unpacked[i + 1] for i in range(len(DEFAULT_SETTINGS["reservoirs"]))],
-                                     axis=2)
+                                      axis=2)
         self.last_state = state
         self.pred = tf.reduce_sum(self.outputs, 1)
         self.average_pred = tf.reduce_mean(self.pred)
@@ -63,61 +64,77 @@ class ReservoirOptimizer(object):
         # self.loss = -objective
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
-    def Optimize(self, epoch=100):
-        #         Time_Target_List = [15,30,60,120,240,480,960]
-        #         Target = Time_Target_List[0]
-        #         counter = 0
-        #         new_loss = self.sess.run([self.average_pred])
-        #         print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
-        #         print('Compile to backend complete!')
-        #         start = time.time()
-        #         while True:
-        #             training = self.sess.run([self.optimizer])
-        #             action_upperbound=self.sess.run(self.intern_states)
-        #             self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
-        #             end = time.time()
-        #             if end-start>=Target:
-        #                 print('Time: {0}'.format(Target))
-        #                 pred_list = self.sess.run(self.pred)
-        #                 pred_list=np.sort(pred_list.flatten())[::-1]
-        #                 pred_list=pred_list[:5]
-        #                 pred_mean = np.mean(pred_list)
-        #                 pred_std = np.std(pred_list)
-        #                 print('Best Cost: {0}'.format(pred_list[0]))
-        #                 print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
-        #                 counter = counter+1
-        #                 if counter == len(Time_Target_List):
-        #                     print("Done!")
-        #                     break
-        #                 else:
-        #                     Target = Time_Target_List[counter]
+    def _p_Q_loss(self):
+        print("Q-loss")
+        objective = tf.constant(0.0, shape=[self.batch_size, 1])
+        for i in range(self.num_step):
+            Rt = self.outputs[:, i]
+            SumRj = tf.constant(0.0, shape=[self.batch_size, 1])
+            # SumRk=tf.constant(0.0, shape=[self.batch_size, 1])
+            if i < (self.num_step - 1):
+                j = i + 1
+                SumRj = tf.reduce_sum(self.outputs[:, j:], 1)
+                # if i<(self.num_step-1):
+                # k= i+1
+                # SumRk = tf.reduce_sum(self.outputs[:,k:],1)
+            objective += (Rt * SumRj + tf.square(Rt)) * (self.num_step - i) / np.square(self.num_step)
+            # objective+=(Rt*SumRj+tf.square(Rt))/(self.num_step-i)
+        self.loss = tf.reduce_mean(objective)
+        self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
-        new_loss = self.sess.run([self.average_pred])
+    def Optimize(self, epoch=100):
+        # Time_Target_List = [15, 30, 60, 120, 240, 480, 960]
+        # Target = Time_Target_List[0]
+        # counter = 0
+        # new_loss = self.sess.run([self.average_pred])
+        # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
+        # print('Compile to backend complete!')
+        # start = time.time()
+        # while True:
+        #     training = self.sess.run([self.optimizer])
+        #     action_upperbound = self.sess.run(self.intern_states)
+        #     self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
+        #     end = time.time()
+        #     if end - start >= Target:
+        #         print('Time: {0}'.format(Target))
+        #         pred_list = self.sess.run(self.pred)
+        #         pred_list = np.sort(pred_list.flatten())[::-1]
+        #         pred_list = pred_list[:5]
+        #         pred_mean = np.mean(pred_list)
+        #         pred_std = np.std(pred_list)
+        #         print('Best Cost: {0}'.format(pred_list[0]))
+        #         print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
+        #         counter = counter + 1
+        #         if counter == len(Time_Target_List):
+        #             print("Done!")
+        #             break
+        #         else:
+        #             Target = Time_Target_List[counter]
+
+        new_loss = self.sess.run([self.loss])
         print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
+        start_time = time.time()
         for epoch in range(epoch):
             training = self.sess.run([self.optimizer])
-            action_upperbound = self.sess.run(self.intern_states)
+            action_upperbound=self.sess.run(self.intern_states)
             self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
             if True:
-                new_loss = self.sess.run([self.average_pred])
+                new_loss = self.sess.run([self.loss])
                 print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
-        minimum_costs_id = self.sess.run(tf.argmax(self.pred, 0))
+        minimum_costs_id=self.sess.run(tf.argmax(self.pred,0))
         print(minimum_costs_id)
-        best_action = self.sess.run(self.action)[minimum_costs_id[0]]
-        np.savetxt("RS_ACTION.csv", best_action, delimiter=",", fmt='%2.5f')
+        best_action = np.round(self.sess.run(self.action)[minimum_costs_id[0]],4)
         print('Optimal Action Squence:{0}'.format(best_action))
+        print('Best Cost: {0}'.format(self.sess.run(self.pred)[minimum_costs_id[0]]))
         pred_list = self.sess.run(self.pred)
-        pred_list = np.sort(pred_list.flatten())[::-1]
-        pred_list = pred_list[:5]
+        pred_list=np.sort(pred_list.flatten())[::-1]
+        pred_list=pred_list[:5]
         pred_mean = np.mean(pred_list)
         pred_std = np.std(pred_list)
         print('Best Cost: {0}'.format(pred_list[0]))
         print('Sorted Costs:{0}'.format(pred_list))
-        print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
-        print('The last state:{0}'.format(self.sess.run(self.last_state)))
+        print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
         print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
         print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
         print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
-        interm = self.sess.run(self.intern_states)[minimum_costs_id[0]]
-        np.savetxt("RS_INTERM.csv", interm, delimiter=",", fmt='%2.5f')
 
