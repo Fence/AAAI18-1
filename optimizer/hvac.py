@@ -28,7 +28,6 @@ class HVACOptimizer(object):
                  instance,
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  batch_size,
-                 loss,
                  learning_rate=0.1):
         self.action = action
         print(self.action)
@@ -38,10 +37,7 @@ class HVACOptimizer(object):
         self.previous_output = np.zeros((batch_size, num_step))
         self.weights = np.ones((batch_size, num_step, 1))
         self._p_create_rnn_graph(instance)
-        if loss == "Qloss":
-            self._p_Q_loss()
-        else:
-            self._p_create_loss()
+        self._p_create_loss()
         self.sess = tf.InteractiveSession()
         self.sess.run(tf.global_variables_initializer())
 
@@ -71,22 +67,6 @@ class HVACOptimizer(object):
         print(self.loss.get_shape())
         # self.loss = -objective
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
-
-    def _p_Q_loss(self):
-        print("Q-loss")
-
-        objective = tf.reduce_sum(self.outputs * self.weights, 1)
-        self.loss = tf.reduce_mean(tf.square(objective))
-        self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
-
-    def softmax(self, z, dim):
-        sm = np.exp(z) / np.sum(np.exp(z), axis=dim, keepdims=True)
-        return sm
-
-    def _p_attention(self, new_output):
-        value = new_output - self.previous_output
-        self.weights = self.softmax(value + np.amin(value), 1).reshape(self.batch_size, self.num_step, 1)
-        self.previous_output = new_output
 
     def Optimize(self, epoch=100):
         new_loss = self.sess.run([self.average_pred])
