@@ -18,32 +18,32 @@ DEFAULT_SETTINGS = {
 }
 
 
-class ActionOptimizer(object):
+class ReservoirOptimizer(object):
     def __init__(self,
                  action,  # Actions
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
-                 num_act,  # Number of actions
                  batch_size,  # Batch Size
+                 domain,
                  learning_rate=0.1):
         self.action = action,
         print(self.action)
         self.batch_size = batch_size
         self.num_step = num_step
         self.learning_rate = learning_rate
-        self._p_create_rnn_graph()
+        self._p_create_rnn_graph(domain)
         self._p_create_loss()
         self.sess = tf.InteractiveSession()
         self.sess.run(tf.global_variables_initializer())
 
-    def _p_create_rnn_graph(self):
-        cell = RESERVOIRCell(self.batch_size, DEFAULT_SETTINGS)
+    def _p_create_rnn_graph(self, domain):
+        cell = RESERVOIRCell(domain, self.batch_size, DEFAULT_SETTINGS)
         initial_state = cell.zero_state(self.batch_size, dtype=tf.float32) + tf.constant(
             [DEFAULT_SETTINGS["init_state"]], dtype=tf.float32)
         print('action batch size:{0}'.format(array_ops.shape(self.action)[0]))
         print('Initial_state shape:{0}'.format(initial_state))
         rnn_outputs, state = tf.nn.dynamic_rnn(cell, self.action, dtype=tf.float32, initial_state=initial_state)
         # need output intermediate states as well
-        concated = tf.concat(0, rnn_outputs)
+        concated = tf.concat(axis=0, values=rnn_outputs)
         print('concated shape:{0}'.format(concated.get_shape()))
         something_unpacked = tf.unstack(concated, axis=2)
         self.outputs = tf.reshape(something_unpacked[0], [-1, self.num_step, 1])
