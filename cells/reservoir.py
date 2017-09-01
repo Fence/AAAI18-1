@@ -19,4 +19,4 @@ class RESERVOIRCell(tf.nn.rnn_cell.RNNCell):
     def __call__(self, inputs, state, scope=None):
         next_state = self.reservoir.Transition(state, inputs)
         reward = self.reservoir.Reward(next_state)
-        return tf.concat(1, [reward, next_state]), next_state
+        return tf.concat(axis=1, values=[reward, next_state]), next_state

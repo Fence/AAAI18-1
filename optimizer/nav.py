@@ -2,7 +2,6 @@ import tensorflow as tf
 from tensorflow.python.ops import array_ops
 import numpy as np
 from cells.nav import NAVICell
-from domains.nav import NAVI_BILINEAR
 
 DEFAULT_SETTINGS = {
     "dims": 2,
