@@ -27,7 +27,7 @@ class HVAC(object):
             np_adj[m, n] = 1
             np_adj[n, m] = 1
         self.adj = tf.constant(np_adj, dtype=tf. float32)
-        print('self.adj shape:{0}'.format(self.adj.get_shape()))
+        # print('self.adj shape:{0}'.format(self.adj.get_shape()))
 
     def _init_ADJOUT_MATRIX(self, adj_outside):
         np_adj_outside = np.zeros((self.room_size,))
@@ -99,15 +99,15 @@ class HVAC(object):
 
     def Transition(self, states, actions):
         previous_state = states
-        print('state shape:{0}'.format(states.get_shape()))
+        # print('state shape:{0}'.format(states.get_shape()))
         heating_info = actions*self.CAP_AIR() * (self.TEMP_AIR()-previous_state)
         neighbor_info = (tf.transpose(tf.matmul(self.ADJ(), tf.transpose(states)))
                          - previous_state
                          *tf.reduce_sum(self.ADJ(), 1))/self.R_WALL()
         outside_info = (self. TEMP_OUTSIDE() - previous_state)*self. ADJ_OUTSIDE()/self.R_OUTSIDE()
         hall_info = (self. TEMP_HALL() - previous_state)*self. ADJ_HALL()/self.R_HALL()
-        print('neighbor_info shape:{0}'.format(neighbor_info.get_shape()))
-        print('hall_info shape:{0}'.format(hall_info.get_shape()))
+        # print('neighbor_info shape:{0}'.format(neighbor_info.get_shape()))
+        # print('hall_info shape:{0}'.format(hall_info.get_shape()))
         new_state = previous_state+self. TIME_DELTA()/self. CAP()*(heating_info +
                                                                    neighbor_info + outside_info + hall_info)
         return new_state

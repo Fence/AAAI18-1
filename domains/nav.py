@@ -8,7 +8,7 @@ class NAVI_BILINEAR(object):
         self.__dict__.update(default_settings)
         self.batch_size = batch_size
         self.zero = tf.constant(0, shape=[batch_size, 2], dtype=tf.float32)
-        self.four = tf.constant(2.0, dtype=tf.float32)
+        self.four = tf.constant(4.0, dtype=tf.float32)
         self.one = tf.constant(1.0, shape=[batch_size], dtype=tf.float32)
 
     def MINMAZEBOUND(self):

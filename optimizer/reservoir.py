@@ -3,6 +3,7 @@ from tensorflow.python.ops import array_ops
 import numpy as np
 from cells.reservoir import RESERVOIRCell
 import time
+from tqdm import tqdm
 
 
 DEFAULT_SETTINGS = {
@@ -27,7 +28,7 @@ class ReservoirOptimizer(object):
                  domain,
                  learning_rate=0.01):
         self.action = action
-        print(self.action)
+        # print(self.action)
         self.batch_size = batch_size
         self.num_step = num_step
         self.learning_rate = learning_rate
@@ -40,32 +41,32 @@ class ReservoirOptimizer(object):
         cell = RESERVOIRCell(domain, self.batch_size, DEFAULT_SETTINGS)
         initial_state = cell.zero_state(self.batch_size, dtype=tf.float32) + tf.constant(
             [DEFAULT_SETTINGS["init_state"]], dtype=tf.float32)
-        print('action batch size:{0}'.format(array_ops.shape(self.action)[0]))
-        print('Initial_state shape:{0}'.format(initial_state))
+        # print('action batch size:{0}'.format(array_ops.shape(self.action)[0]))
+        # print('Initial_state shape:{0}'.format(initial_state))
         rnn_outputs, state = tf.nn.dynamic_rnn(cell, self.action, dtype=tf.float32, initial_state=initial_state)
         # need output intermediate states as well
         concated = tf.concat(axis=0, values=rnn_outputs)
-        print('concated shape:{0}'.format(concated.get_shape()))
+        # print('concated shape:{0}'.format(concated.get_shape()))
         something_unpacked = tf.unstack(concated, axis=2)
         self.outputs = tf.reshape(something_unpacked[0], [-1, self.num_step, 1])
-        print(' self.outputs:{0}'.format(self.outputs.get_shape()))
+        # print(' self.outputs:{0}'.format(self.outputs.get_shape()))
         self.intern_states = tf.stack([something_unpacked[i + 1] for i in range(len(DEFAULT_SETTINGS["reservoirs"]))],
                                       axis=2)
         self.last_state = state
         self.pred = tf.reduce_sum(self.outputs, 1)
         self.average_pred = tf.reduce_mean(self.pred)
-        print("self.pred:{0}".format(self.pred))
+        # print("self.pred:{0}".format(self.pred))
 
     def _p_create_loss(self):
-        print("MSE-loss")
+        # print("MSE-loss")
         objective = tf.reduce_mean(tf.square(self.pred))
         self.loss = objective
-        print(self.loss.get_shape())
+        # print(self.loss.get_shape())
         # self.loss = -objective
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
     def _p_Q_loss(self):
-        print("Q-loss")
+        # print("Q-loss")
         objective = tf.constant(0.0, shape=[self.batch_size, 1])
         for i in range(self.num_step):
             Rt = self.outputs[:, i]
@@ -112,29 +113,30 @@ class ReservoirOptimizer(object):
         #             Target = Time_Target_List[counter]
 
         new_loss = self.sess.run([self.loss])
-        print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
+        # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
         start_time = time.time()
-        for epoch in range(epoch):
+        for epoch in tqdm(xrange(epoch)):
             training = self.sess.run([self.optimizer])
             action_upperbound=self.sess.run(self.intern_states)
             self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
             if True:
                 new_loss = self.sess.run([self.loss])
-                print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
+                # print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
         minimum_costs_id=self.sess.run(tf.argmax(self.pred,0))
-        print(minimum_costs_id)
+        # print(minimum_costs_id)
         best_action = np.round(self.sess.run(self.action)[minimum_costs_id[0]],4)
-        print('Optimal Action Squence:{0}'.format(best_action))
-        print('Best Cost: {0}'.format(self.sess.run(self.pred)[minimum_costs_id[0]]))
+        # print('Optimal Action Squence:{0}'.format(best_action))
+        # print('Best Cost: {0}'.format(self.sess.run(self.pred)[minimum_costs_id[0]]))
         pred_list = self.sess.run(self.pred)
         pred_list=np.sort(pred_list.flatten())[::-1]
-        pred_list=pred_list[:5]
+        pred_list=pred_list[:10]
         pred_mean = np.mean(pred_list)
         pred_std = np.std(pred_list)
-        print('Best Cost: {0}'.format(pred_list[0]))
-        print('Sorted Costs:{0}'.format(pred_list))
-        print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
-        print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
-        print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
-        print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
+        # print('Best Cost: {0}'.format(pred_list[0]))
+        # print('Sorted Costs:{0}'.format(pred_list))
+        # print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
+        # print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
+        # print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
+        # print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
+        return pred_mean, pred_std
 

@@ -1,13 +1,12 @@
 import tensorflow as tf
-from domains.hvac import HVAC
 
 
 class HVACCell(tf.nn.rnn_cell.RNNCell):
 
-    def __init__(self, adj_outside, adj_hall, adj, rooms, batch_size, default_settings):
+    def __init__(self, domain, adj_outside, adj_hall, adj, rooms, batch_size, default_settings):
         self._num_state_units = len(rooms)
         self._num_reward_units = 1+len(rooms)
-        self.hvac = HVAC(adj_outside, adj_hall, adj, rooms, batch_size, default_settings)
+        self.hvac = domain(adj_outside, adj_hall, adj, rooms, batch_size, default_settings)
 
     @property
     def state_size(self):

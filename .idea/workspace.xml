@@ -5,7 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c855309b-4952-4b99-abe7-9e860a931e24" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HVAC_ACTION.csv" afterPath="$PROJECT_DIR$/HVAC_ACTION.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HVAC_INTERM.csv" afterPath="$PROJECT_DIR$/HVAC_INTERM.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HVAC_REWARD.csv" afterPath="$PROJECT_DIR$/HVAC_REWARD.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cells/hvac.py" afterPath="$PROJECT_DIR$/cells/hvac.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domains/hvac.py" afterPath="$PROJECT_DIR$/domains/hvac.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/domains/nav.py" afterPath="$PROJECT_DIR$/domains/nav.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/experiments/configuration.py" afterPath="$PROJECT_DIR$/experiments/configuration.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/optimizer/hvac.py" afterPath="$PROJECT_DIR$/optimizer/hvac.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/optimizer/nav.py" afterPath="$PROJECT_DIR$/optimizer/nav.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/optimizer/reservoir.py" afterPath="$PROJECT_DIR$/optimizer/reservoir.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +29,8 @@
       <file leaf-file-name="hvac.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/optimizer/hvac.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="25" />
+            <state relative-caret-position="162">
+              <caret line="66" column="38" lean-forward="false" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -29,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reservoir.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="reservoir.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/optimizer/reservoir.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="123" column="62" lean-forward="true" selection-start-line="123" selection-start-column="62" selection-end-line="123" selection-end-column="62" />
+            <state relative-caret-position="350">
+              <caret line="116" column="32" lean-forward="true" selection-start-line="116" selection-start-column="32" selection-end-line="116" selection-end-column="32" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -41,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nav.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="nav.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/domains/nav.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="41" column="21" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+            <state relative-caret-position="414">
+              <caret line="23" column="22" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -54,8 +63,8 @@
       <file leaf-file-name="hvac.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/domains/hvac.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1764">
-              <caret line="99" column="40" lean-forward="false" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="40" />
+            <state relative-caret-position="1980">
+              <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -66,8 +75,8 @@
       <file leaf-file-name="reservoir.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/domains/reservoir.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2772">
-              <caret line="155" column="99" lean-forward="false" selection-start-line="155" selection-start-column="92" selection-end-line="155" selection-end-column="99" />
+            <state relative-caret-position="72">
+              <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -75,22 +84,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reservoir.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cells/reservoir.py">
+      <file leaf-file-name="configuration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/experiments/configuration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="60" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hvac.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cells/hvac.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="56" lean-forward="false" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
-              <folding />
+            <state relative-caret-position="656">
+              <caret line="75" column="18" lean-forward="false" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
+              <folding>
+                <element signature="e#10#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,8 +109,8 @@
       <file leaf-file-name="nav.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/optimizer/nav.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="25" />
+            <state relative-caret-position="468">
+              <caret line="29" column="10" lean-forward="false" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -120,10 +121,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,6 +147,7 @@
       <find>concate</find>
       <find>matmul</find>
       <find>con</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,18 +159,19 @@
         <option value="$PROJECT_DIR$/utils/io.py" />
         <option value="$PROJECT_DIR$/instances/hvac_60.py" />
         <option value="$PROJECT_DIR$/instances/hvac.py" />
-        <option value="$PROJECT_DIR$/cells/hvac.py" />
         <option value="$PROJECT_DIR$/domains/nav_bilinear.py" />
-        <option value="$PROJECT_DIR$/domains/hvac.py" />
         <option value="$PROJECT_DIR$/cells/nav.py" />
-        <option value="$PROJECT_DIR$/domains/nav.py" />
-        <option value="$PROJECT_DIR$/experiments/configuration.py" />
-        <option value="$PROJECT_DIR$/optimizer/hvac.py" />
-        <option value="$PROJECT_DIR$/optimizer/nav.py" />
         <option value="$PROJECT_DIR$/cells/reservoir.py" />
         <option value="$PROJECT_DIR$/domains/reservoir.py" />
-        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/cells/hvac.py" />
+        <option value="$PROJECT_DIR$/domains/hvac.py" />
+        <option value="$PROJECT_DIR$/result.json" />
+        <option value="$PROJECT_DIR$/optimizer/hvac.py" />
+        <option value="$PROJECT_DIR$/optimizer/nav.py" />
         <option value="$PROJECT_DIR$/optimizer/reservoir.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/domains/nav.py" />
+        <option value="$PROJECT_DIR$/experiments/configuration.py" />
       </list>
     </option>
   </component>
@@ -220,6 +223,11 @@
               <item name="aaai18" type="b2602c69:ProjectViewProjectNode" />
               <item name="aaai18" type="462c0819:PsiDirectoryNode" />
               <item name="domains" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="aaai18" type="b2602c69:ProjectViewProjectNode" />
+              <item name="aaai18" type="462c0819:PsiDirectoryNode" />
+              <item name="experiments" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="aaai18" type="b2602c69:ProjectViewProjectNode" />
@@ -308,16 +316,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/domains/hvac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="41" column="34" lean-forward="false" selection-start-line="41" selection-start-column="34" selection-end-line="41" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cells/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -364,7 +362,7 @@
         <state relative-caret-position="126">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -373,6 +371,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding>
+            <element signature="e#10#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -444,7 +445,7 @@
         <state relative-caret-position="126">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -453,6 +454,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="37" lean-forward="true" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
+          <folding>
+            <element signature="e#10#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -460,6 +464,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -519,7 +524,7 @@
         <state relative-caret-position="126">
           <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -528,6 +533,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -585,6 +591,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -600,7 +607,7 @@
         <state relative-caret-position="90">
           <caret line="7" column="54" lean-forward="true" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -636,10 +643,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/experiments/configuration.py">
+    <entry file="file://$PROJECT_DIR$/cells/reservoir.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="22" column="32" lean-forward="false" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+        <state relative-caret-position="342">
+          <caret line="19" column="60" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="60" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -647,6 +655,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cells/hvac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/domains/reservoir.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="40" column="36" lean-forward="false" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/optimizer/hvac.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="66" column="38" lean-forward="false" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/optimizer/reservoir.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="116" column="32" lean-forward="true" selection-start-line="116" selection-start-column="32" selection-end-line="116" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -658,87 +713,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/optimizer/nav.py">
+    <entry file="file://$PROJECT_DIR$/experiments/configuration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="25" />
+        <state relative-caret-position="656">
+          <caret line="75" column="18" lean-forward="false" selection-start-line="75" selection-start-column="18" selection-end-line="75" selection-end-column="18" />
           <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cells/hvac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="56" lean-forward="false" selection-start-line="6" selection-start-column="56" selection-end-line="6" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/optimizer/hvac.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="25" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#10#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/domains/hvac.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1764">
-          <caret line="99" column="40" lean-forward="false" selection-start-line="99" selection-start-column="33" selection-end-line="99" selection-end-column="40" />
+        <state relative-caret-position="1980">
+          <caret line="110" column="8" lean-forward="false" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="8" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/domains/reservoir.py">
+    <entry file="file://$PROJECT_DIR$/optimizer/nav.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2772">
-          <caret line="155" column="99" lean-forward="false" selection-start-line="155" selection-start-column="92" selection-end-line="155" selection-end-column="99" />
+        <state relative-caret-position="468">
+          <caret line="29" column="10" lean-forward="false" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cells/reservoir.py">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="60" lean-forward="false" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="60" />
-          <folding />
+        <state relative-caret-position="306">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/domains/nav.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="41" column="21" lean-forward="false" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+        <state relative-caret-position="414">
+          <caret line="23" column="22" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/optimizer/reservoir.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="123" column="62" lean-forward="true" selection-start-line="123" selection-start-column="62" selection-end-line="123" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
