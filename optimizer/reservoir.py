@@ -6,18 +6,18 @@ import time
 from tqdm import tqdm
 
 
-DEFAULT_SETTINGS = {
-    "max_cap": [100,100,100,100,100,100,100,100,200,200,200,200,200,200,400,400,400,500,500,1000],
-    "high_bound": [80,80,80,80,80,80,80,80,180,180,180,180,180,180,380,380,380,480,480,980],
-    "low_bound": [20,20,20,20,20,20,20,20,30,30,30,30,30,30,40,40,40,60,60,100],
-    "rain": [5,5,5,5,5,5,5,5,10,10,10,10,10,10,20,20,20,30,30,40],
-    "downstream": [[1,9],[2,9],[3,10],[4,10],[5,11],[6,11],[7,12],[8,12],[9,15],[10,15],
-                    [11,16],[12,16],[13,17],[14,17],[15,18],[16,19],[17,19],[18,20],[19,20]],
-    "downtosea": [20],
-    "biggestmaxcap": 1000,
-    "reservoirs": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-    "init_state": [75,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50]
-}
+# DEFAULT_SETTINGS = {
+#     "max_cap": [100,100,100,100,100,100,100,100,200,200,200,200,200,200,400,400,400,500,500,1000],
+#     "high_bound": [80,80,80,80,80,80,80,80,180,180,180,180,180,180,380,380,380,480,480,980],
+#     "low_bound": [20,20,20,20,20,20,20,20,30,30,30,30,30,30,40,40,40,60,60,100],
+#     "rain": [5,5,5,5,5,5,5,5,10,10,10,10,10,10,20,20,20,30,30,40],
+#     "downstream": [[1,9],[2,9],[3,10],[4,10],[5,11],[6,11],[7,12],[8,12],[9,15],[10,15],
+#                     [11,16],[12,16],[13,17],[14,17],[15,18],[16,19],[17,19],[18,20],[19,20]],
+#     "downtosea": [20],
+#     "biggestmaxcap": 1000,
+#     "reservoirs": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+#     "init_state": [75,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50]
+# }
 
 
 class ReservoirOptimizer(object):
@@ -26,21 +26,24 @@ class ReservoirOptimizer(object):
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  batch_size,  # Batch Size
                  domain,
+                 instance,
+                 sess,
                  learning_rate=0.01):
         self.action = action
+        self.instance = instance
         # print(self.action)
         self.batch_size = batch_size
         self.num_step = num_step
         self.learning_rate = learning_rate
         self._p_create_rnn_graph(domain)
         self._p_create_loss()
-        self.sess = tf.InteractiveSession()
+        self.sess = sess
         self.sess.run(tf.global_variables_initializer())
 
     def _p_create_rnn_graph(self, domain):
-        cell = RESERVOIRCell(domain, self.batch_size, DEFAULT_SETTINGS)
+        cell = RESERVOIRCell(domain, self.batch_size, self.instance)
         initial_state = cell.zero_state(self.batch_size, dtype=tf.float32) + tf.constant(
-            [DEFAULT_SETTINGS["init_state"]], dtype=tf.float32)
+            [self.instance["init_state"]], dtype=tf.float32)
         # print('action batch size:{0}'.format(array_ops.shape(self.action)[0]))
         # print('Initial_state shape:{0}'.format(initial_state))
         rnn_outputs, state = tf.nn.dynamic_rnn(cell, self.action, dtype=tf.float32, initial_state=initial_state)
@@ -50,7 +53,7 @@ class ReservoirOptimizer(object):
         something_unpacked = tf.unstack(concated, axis=2)
         self.outputs = tf.reshape(something_unpacked[0], [-1, self.num_step, 1])
         # print(' self.outputs:{0}'.format(self.outputs.get_shape()))
-        self.intern_states = tf.stack([something_unpacked[i + 1] for i in range(len(DEFAULT_SETTINGS["reservoirs"]))],
+        self.intern_states = tf.stack([something_unpacked[i + 1] for i in range(len(self.instance["reservoirs"]))],
                                       axis=2)
         self.last_state = state
         self.pred = tf.reduce_sum(self.outputs, 1)

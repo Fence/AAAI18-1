@@ -30,6 +30,8 @@ class HVACOptimizer(object):
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  batch_size,
                  domain,
+                 instance,
+                 sess,
                  learning_rate=0.1):
         self.action = action
         # print(self.action)
@@ -38,9 +40,9 @@ class HVACOptimizer(object):
         self.learning_rate = learning_rate
         self.previous_output = np.zeros((batch_size, num_step))
         self.weights = np.ones((batch_size, num_step, 1))
-        self._p_create_rnn_graph(HVAC_60, domain)
+        self._p_create_rnn_graph(instance, domain)
         self._p_create_loss()
-        self.sess = tf.InteractiveSession()
+        self.sess = sess
         self.sess.run(tf.global_variables_initializer())
 
     def _p_create_rnn_graph(self, instance, domain):

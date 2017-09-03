@@ -4,15 +4,15 @@ import numpy as np
 from cells.nav import NAVICell
 from tqdm import tqdm
 
-DEFAULT_SETTINGS = {
-    "dims": 2,
-    "min_maze_bound": tf.constant(0.0, dtype=tf.float32),
-    "max_maze_bound": tf.constant(10.0, dtype=tf.float32),
-    "min_act_bound": tf.constant(-1, dtype=tf.float32),
-    "max_act_bound": tf.constant(1, dtype=tf.float32),
-    "goal": tf.constant(8.0, dtype=tf.float32),
-    "centre": tf.constant(5.0, dtype=tf.float32)
-   }
+# DEFAULT_SETTINGS = {
+#     "dims": 2,
+#     "min_maze_bound": tf.constant(0.0, dtype=tf.float32),
+#     "max_maze_bound": tf.constant(10.0, dtype=tf.float32),
+#     "min_act_bound": tf.constant(-0.5, dtype=tf.float32),
+#     "max_act_bound": tf.constant(0.5, dtype=tf.float32),
+#     "goal": tf.constant(8.0, dtype=tf.float32),
+#     "centre": tf.constant(5.0, dtype=tf.float32)
+#    }
 
 
 class NAVOptimizer(object):
@@ -21,7 +21,10 @@ class NAVOptimizer(object):
                  num_step,  # Number of RNN step, this is a fixed step RNN sequence, 12 for navigation
                  batch_size,  # Batch Size
                  domain,
+                 instance,
+                 sess,
                  learning_rate=0.005):
+        self.instance = instance
         self.action = action
         # print(self.action)
         self.batch_size = batch_size
@@ -29,11 +32,11 @@ class NAVOptimizer(object):
         self.learning_rate = learning_rate
         self._p_create_rnn_graph(domain)
         self._p_create_loss()
-        self.sess = tf.InteractiveSession()
+        self.sess = sess
         self.sess.run(tf.global_variables_initializer())
 
     def _p_create_rnn_graph(self, domain):
-        cell = NAVICell(domain, self.batch_size, DEFAULT_SETTINGS)
+        cell = NAVICell(domain, self.batch_size, self.instance)
         initial_state = cell.zero_state(self.batch_size, dtype=tf.float32)
         # print('action batch size:{0}'.format(array_ops.shape(self.action)[0]))
         # print('Initial_state shape:{0}'.format(initial_state))
@@ -67,8 +70,8 @@ class NAVOptimizer(object):
             self.sess.run(
                 tf.assign(self.action,
                           tf.clip_by_value(self.action,
-                                           DEFAULT_SETTINGS['min_act_bound'],
-                                           DEFAULT_SETTINGS['max_act_bound'])))
+                                           self.instance['min_act_bound'],
+                                           self.instance['max_act_bound'])))
             if True:
                 new_loss = self.sess.run([self.average_pred])
                 # print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
@@ -93,4 +96,4 @@ class NAVOptimizer(object):
             progress = np.array(progress)[:, minimum_costs_id[0]]
             # print('progress shape:{0}'.format(progress.shape))
             np.savetxt("progress.csv", progress.reshape((progress.shape[0], -1)), delimiter=",", fmt='%2.5f')
-        return pred_mean,pred_std
+        return pred_mean, pred_std

@@ -6,12 +6,17 @@ from domains.reservoir import RESERVOIR_NONLINEAR, RESERVOIR_LINEAR
 from optimizer.hvac import HVACOptimizer
 from optimizer.nav import NAVOptimizer
 from optimizer.reservoir import ReservoirOptimizer
+# INSTANCE
+from instances.hvac import HVAC_60
+from instances.nav import NAV_30, NAV_60, NAV_120
+from instances.reservoir import RESERVOIR_20
 
 
 CONFIGURATIONS = [
     {
         'optimizer': NAVOptimizer,
         'domain': NAVI_BILINEAR,
+        'instance': [NAV_30, NAV_60, NAV_120],
         'step': [30, 60, 120],
         'batch': 100,
         'dimension': 2,
@@ -24,6 +29,7 @@ CONFIGURATIONS = [
     {
         'optimizer': NAVOptimizer,
         'domain': NAVI_NONLINEAR,
+        'instance': [NAV_30, NAV_60, NAV_120],
         'step': [30, 60, 120],
         'batch': 100,
         'dimension': 2,
@@ -36,6 +42,7 @@ CONFIGURATIONS = [
     {
         'optimizer': NAVOptimizer,
         'domain': NAVI_LINEAR,
+        'instance': [NAV_30, NAV_60, NAV_120],
         'step': [30, 60, 120],
         'batch': 100,
         'dimension': 2,
@@ -48,6 +55,7 @@ CONFIGURATIONS = [
     {
         'optimizer': ReservoirOptimizer,
         'domain': RESERVOIR_LINEAR,
+        'instance': [RESERVOIR_20]*3,
         'step': [30, 60, 120],
         'batch': 100,
         'dimension': 20,
@@ -60,6 +68,7 @@ CONFIGURATIONS = [
     {
         'optimizer': ReservoirOptimizer,
         'domain': RESERVOIR_NONLINEAR,
+        'instance': [RESERVOIR_20]*3,
         'step': [30, 60, 120],
         'batch': 100,
         'dimension': 20,
@@ -72,6 +81,7 @@ CONFIGURATIONS = [
     {
         'optimizer': HVACOptimizer,
         'domain': HVAC,
+        'instance': [HVAC_60]*4,
         'step': [12, 24, 48, 96],
         'batch': 100,
         'dimension': 60,
