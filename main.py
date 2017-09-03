@@ -38,6 +38,8 @@ from experiments.configuration import CONFIGURATIONS
 Data = {}
 for config in CONFIGURATIONS:
     for index, step in enumerate(config['step']):
+        gc.collect()
+        tf.reset_default_graph()
         with tf.Session() as sess:
             name = (config['optimizer'].__name__
                     + ' ' + config['domain'].__name__
@@ -46,13 +48,11 @@ for config in CONFIGURATIONS:
             print name
             initial_a = tf.truncated_normal(shape=[config['batch'], step, config['dimension']],
                                             mean=config['initial_mean'],
-                                            stddev=config['initial_std'])#.eval(session=sess)
+                                            stddev=config['initial_std'])
             a = tf.Variable(initial_a, name="action")
             rnn_inst = config['optimizer'](a, step, config['batch'], config['domain'], config['instance'][index], sess=sess)
             mean, std = rnn_inst.Optimize(config['epoch'])
             print 'mean: {0}, std: {1}'.format(mean, std)
             Data[name] = unicode([mean, std])
-            gc.collect()
-#import ipdb; ipdb.set_trace()
 with open('result.json', 'w') as fp:
     json.dump(Data, fp)

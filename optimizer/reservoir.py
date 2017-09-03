@@ -86,60 +86,62 @@ class ReservoirOptimizer(object):
         self.loss = tf.reduce_mean(objective)
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
-    def Optimize(self, epoch=100):
-        # Time_Target_List = [15, 30, 60, 120, 240, 480, 960]
-        # Target = Time_Target_List[0]
-        # counter = 0
-        # new_loss = self.sess.run([self.average_pred])
-        # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
-        # print('Compile to backend complete!')
-        # start = time.time()
-        # while True:
-        #     training = self.sess.run([self.optimizer])
-        #     action_upperbound = self.sess.run(self.intern_states)
-        #     self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
-        #     end = time.time()
-        #     if end - start >= Target:
-        #         print('Time: {0}'.format(Target))
-        #         pred_list = self.sess.run(self.pred)
-        #         pred_list = np.sort(pred_list.flatten())[::-1]
-        #         pred_list = pred_list[:5]
-        #         pred_mean = np.mean(pred_list)
-        #         pred_std = np.std(pred_list)
-        #         print('Best Cost: {0}'.format(pred_list[0]))
-        #         print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
-        #         counter = counter + 1
-        #         if counter == len(Time_Target_List):
-        #             print("Done!")
-        #             break
-        #         else:
-        #             Target = Time_Target_List[counter]
+    def Optimize(self, epoch=100, timing=False):
+        if timing:
+            Time_Target_List = [15, 30, 60, 120, 240, 480, 960]
+            Target = Time_Target_List[0]
+            counter = 0
+            new_loss = self.sess.run([self.average_pred])
+            print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
+            print('Compile to backend complete!')
+            start = time.time()
+            while True:
+                training = self.sess.run([self.optimizer])
+                action_upperbound = self.sess.run(self.intern_states)
+                self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
+                end = time.time()
+                if end - start >= Target:
+                    print('Time: {0}'.format(Target))
+                    pred_list = self.sess.run(self.pred)
+                    pred_list = np.sort(pred_list.flatten())[::-1]
+                    pred_list = pred_list[:5]
+                    pred_mean = np.mean(pred_list)
+                    pred_std = np.std(pred_list)
+                    print('Best Cost: {0}'.format(pred_list[0]))
+                    print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
+                    counter = counter + 1
+                    if counter == len(Time_Target_List):
+                        print("Done!")
+                        break
+                    else:
+                        Target = Time_Target_List[counter]
 
-        new_loss = self.sess.run([self.loss])
-        # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
-        start_time = time.time()
-        for epoch in tqdm(xrange(epoch)):
-            training = self.sess.run([self.optimizer])
-            action_upperbound=self.sess.run(self.intern_states)
-            self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
-            if True:
-                new_loss = self.sess.run([self.loss])
-                # print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
-        minimum_costs_id=self.sess.run(tf.argmax(self.pred,0))
-        # print(minimum_costs_id)
-        best_action = np.round(self.sess.run(self.action)[minimum_costs_id[0]],4)
-        # print('Optimal Action Squence:{0}'.format(best_action))
-        # print('Best Cost: {0}'.format(self.sess.run(self.pred)[minimum_costs_id[0]]))
-        pred_list = self.sess.run(self.pred)
-        pred_list=np.sort(pred_list.flatten())[::-1]
-        pred_list=pred_list[:10]
-        pred_mean = np.mean(pred_list)
-        pred_std = np.std(pred_list)
-        # print('Best Cost: {0}'.format(pred_list[0]))
-        # print('Sorted Costs:{0}'.format(pred_list))
-        # print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
-        # print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
-        # print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
-        # print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
-        return pred_mean, pred_std
+        else:
+            new_loss = self.sess.run([self.loss])
+            # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
+            start_time = time.time()
+            for epoch in tqdm(xrange(epoch)):
+                training = self.sess.run([self.optimizer])
+                action_upperbound=self.sess.run(self.intern_states)
+                self.sess.run(tf.assign(self.action, tf.clip_by_value(self.action, 0, action_upperbound)))
+                if True:
+                    new_loss = self.sess.run([self.loss])
+                    # print('Loss in epoch {0}: {1}'.format(epoch, new_loss))
+            minimum_costs_id=self.sess.run(tf.argmax(self.pred,0))
+            # print(minimum_costs_id)
+            best_action = np.round(self.sess.run(self.action)[minimum_costs_id[0]],4)
+            # print('Optimal Action Squence:{0}'.format(best_action))
+            # print('Best Cost: {0}'.format(self.sess.run(self.pred)[minimum_costs_id[0]]))
+            pred_list = self.sess.run(self.pred)
+            pred_list=np.sort(pred_list.flatten())[::-1]
+            pred_list=pred_list[:10]
+            pred_mean = np.mean(pred_list)
+            pred_std = np.std(pred_list)
+            # print('Best Cost: {0}'.format(pred_list[0]))
+            # print('Sorted Costs:{0}'.format(pred_list))
+            # print('MEAN: {0}, STD:{1}'.format(pred_mean,pred_std))
+            # print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
+            # print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
+            # print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
+            return pred_mean, pred_std
 
