@@ -2,7 +2,7 @@ import os
 import gc
 import json
 import tensorflow as tf
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+#os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from optimizer.hvac import HVACOptimizer
 from optimizer.nav import NAVOptimizer

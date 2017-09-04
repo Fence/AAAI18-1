@@ -85,7 +85,7 @@ class HVACOptimizer(object):
         # print(minimum_costs_id)
         # print('Optimal Action Squence:{0}'.format(self.sess.run(self.action)[minimum_costs_id[0]]))
         action = self.sess.run(self.action)[minimum_costs_id[0]]
-        np.savetxt("HVAC_ACTION.csv", action, delimiter=",", fmt='%2.5f')
+        # np.savetxt("HVAC_ACTION.csv", action, delimiter=",", fmt='%2.5f')
         pred_list = self.sess.run(self.pred)
         pred_list = np.sort(pred_list.flatten())[::-1]
         pred_list = pred_list[:10]
