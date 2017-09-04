@@ -2,8 +2,6 @@ import os
 import gc
 import json
 import tensorflow as tf
-#os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from optimizer.hvac import HVACOptimizer
 from optimizer.nav import NAVOptimizer
 from optimizer.reservoir import ReservoirOptimizer
@@ -14,6 +12,9 @@ from domains.reservoir import RESERVOIR_LINEAR, RESERVOIR_NONLINEAR
 from instances.nav import NAV_30
 from instances.reservoir import RESERVOIR_20
 from instances.hvac import HVAC_60
+
+#os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # sess = tf.Session()
 # initial_a = tf.truncated_normal(shape=[100, 96, 60], mean=5.0, stddev=1.0).eval(session=sess)
