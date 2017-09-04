@@ -9,6 +9,7 @@ python main.py
 python reservoir_timing.py
 
 # Results
+```
 NAVOptimizer NAVI_BILINEAR NAVI_05_STRIDE Planning Step:30
 100%|███████████████████████████████████████████████| 1000/1000 [00:37<00:00, 15.37it/s]
 mean: -185.332839966, std: 0.139176920056
@@ -66,3 +67,4 @@ mean: -25491.59375, std: 34.5582733154
 HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:96
 100%|███████████████████████████████████████████████| 2000/2000 [08:08<00:00,  3.40it/s]
 mean: -39089.8828125, std: 560.183776855
+```
