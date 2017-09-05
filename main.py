@@ -13,7 +13,7 @@ from instances.nav import NAV_30
 from instances.reservoir import RESERVOIR_20
 from instances.hvac import HVAC_60
 
-#os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # sess = tf.Session()

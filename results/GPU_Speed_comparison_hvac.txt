@@ -1,0 +1,27 @@
+wuga@wuga-All-Series:~/Documents/github/aaai18$ python main.py
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:12
+100%|███████████████████████████████████████| 2000/2000 [02:50<00:00,  6.65it/s]
+mean: -18679.9121094, std: 5.03395843506
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:24
+100%|███████████████████████████████████████| 2000/2000 [03:34<00:00,  5.90it/s]
+mean: -20441.6230469, std: 19.2885036469
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:46
+100%|███████████████████████████████████████| 2000/2000 [04:28<00:00,  5.14it/s]
+mean: -24972.8125, std: 75.5522994995
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:96
+100%|███████████████████████████████████████| 2000/2000 [06:21<00:00,  3.88it/s]
+mean: -38847.0507812, std: 643.080322266
+wuga@wuga-All-Series:~/Documents/github/aaai18$ python main.py
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:12
+100%|███████████████████████████████████████| 2000/2000 [02:50<00:00,  6.85it/s]
+mean: -18682.5351562, std: 3.12287735939
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:24
+100%|███████████████████████████████████████| 2000/2000 [03:55<00:00,  6.16it/s]
+mean: -20449.9335938, std: 7.5625743866
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:46
+100%|███████████████████████████████████████| 2000/2000 [05:03<00:00,  4.90it/s]
+mean: -24960.1933594, std: 70.3854293823
+HVACOptimizer HVAC HVAC_60_ROOMS Planning Step:96
+100%|███████████████████████████████████████| 2000/2000 [07:37<00:00,  3.37it/s]
+mean: -39133.84375, std: 551.889709473
+
