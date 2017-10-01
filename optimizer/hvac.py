@@ -72,7 +72,7 @@ class HVACOptimizer(object):
         # self.loss = -objective
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
-    def Optimize(self, epoch=100):
+    def Optimize(self, epoch=100, showbest=False):
         new_loss = self.sess.run([self.average_pred])
         # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
         for epoch in tqdm(xrange(epoch)):
@@ -88,9 +88,13 @@ class HVACOptimizer(object):
         # np.savetxt("HVAC_ACTION.csv", action, delimiter=",", fmt='%2.5f')
         pred_list = self.sess.run(self.pred)
         pred_list = np.sort(pred_list.flatten())[::-1]
-        pred_list = pred_list[:10]
-        pred_mean = np.mean(pred_list)
-        pred_std = np.std(pred_list)
+        if showbest:
+            return pred_list[0]
+        else:
+            pred_list = pred_list[:10]
+            pred_mean = np.mean(pred_list)
+            pred_std = np.std(pred_list)
+            return pred_mean, pred_std
         # print('Best Cost: {0}'.format(pred_list[0]))
         # print('Sorted Costs:{0}'.format(pred_list))
         # print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
@@ -102,4 +106,3 @@ class HVACOptimizer(object):
         # interm = self.sess.run(self.intern_states)[minimum_costs_id[0]]
         # np.savetxt("HVAC_INTERM.csv", interm, delimiter=",", fmt='%2.5f')
         # print 'END'
-        return pred_mean, pred_std

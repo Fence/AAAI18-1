@@ -60,7 +60,7 @@ class NAVOptimizer(object):
         #print(self.loss.get_shape())
         self.optimizer = tf.train.RMSPropOptimizer(self.learning_rate).minimize(self.loss, var_list=[self.action])
 
-    def Optimize(self, epoch=100, show_progress=False):
+    def Optimize(self, epoch=100, showbest=False, show_progress=False):
         new_loss = self.sess.run([self.loss])
         # print('Loss in epoch {0}: {1}'.format("Initial", new_loss))
         if show_progress:
@@ -83,17 +83,20 @@ class NAVOptimizer(object):
         # print('Optimal Action Squence:{0}'.format(best_action))
         pred_list = self.sess.run(self.pred)
         pred_list = np.sort(pred_list.flatten())[::-1]
-        pred_list = pred_list[:10]
-        pred_mean = np.mean(pred_list)
-        pred_std = np.std(pred_list)
+        if showbest:
+            return pred_list[0]
+        else:
+            pred_list = pred_list[:10]
+            pred_mean = np.mean(pred_list)
+            pred_std = np.std(pred_list)
+            return pred_mean, pred_std
         # print('Best Cost: {0}'.format(pred_list[0]))
         # print('Sorted Costs:{0}'.format(pred_list))
         # print('MEAN: {0}, STD:{1}'.format(pred_mean, pred_std))
         # print('The last state:{0}'.format(self.sess.run(self.last_state)[minimum_costs_id[0]]))
         # print('Rewards each time step:{0}'.format(self.sess.run(self.outputs)[minimum_costs_id[0]]))
         # print('Intermediate states:{0}'.format(self.sess.run(self.intern_states)[minimum_costs_id[0]]))
-        if show_progress:
-            progress = np.array(progress)[:, minimum_costs_id[0]]
-            # print('progress shape:{0}'.format(progress.shape))
-            np.savetxt("progress.csv", progress.reshape((progress.shape[0], -1)), delimiter=",", fmt='%2.5f')
-        return pred_mean, pred_std
+        # if show_progress:
+        #     progress = np.array(progress)[:, minimum_costs_id[0]]
+        #     # print('progress shape:{0}'.format(progress.shape))
+        #     np.savetxt("progress.csv", progress.reshape((progress.shape[0], -1)), delimiter=",", fmt='%2.5f')
