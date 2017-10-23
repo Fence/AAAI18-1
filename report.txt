@@ -1,0 +1,11 @@
+ERROR:root:[3] Function randomSplitCI() has run-time error
+INFO:root:labels ['label'] not contained in axis
+ERROR:root:[3] Function randomSplitCM() has run-time error
+INFO:root:labels ['label'] not contained in axis
+ERROR:root:[3] Function featureSizeAC() has run-time error
+INFO:root:labels ['label'] not contained in axis
+ERROR:root:[3] Function hyperParameterAC() has run-time error
+INFO:root:labels ['label'] not contained in axis
+ERROR:root:[3] Function dataSizeAC() has run-time error
+INFO:root:labels ['label'] not contained in axis
+Score: 1
